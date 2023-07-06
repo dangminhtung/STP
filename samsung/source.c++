@@ -37,32 +37,31 @@ int main()
                 int x = 1, y = i;
                 while (true)
                 {
-                    // cout << arr[x][y - 1];
-                    // cout << dir << endl;
+
                     if (x < 0 || y < 0 || x >= 10 || y >= 10)
                     {
                         break;
                     }
 
-                    // cout << x << " " << y << " " << dir << endl;
+                    cout << x << " " << y << " " << dir << endl;
 
-                    if (dir == 3 && (arr[x][y + 1] == 1 || arr[x][y - 1] == 1))
+                    if (dir == 3 && (arr[x][y + 1] == 1 || arr[x][y - 1] == 1 || arr[x][y + 1] == 2 || arr[x][y - 1] == 2))
                     {
                         // cout << x << " " << y << endl;
-                        if (arr[x][y + 1] == 1)
+                        if (arr[x][y + 1] == 1 || arr[x][y + 1] == 2)
                         {
                             dir = (dir + 3) % 4;
                             moved(x, y, dir);
                             sum++;
                         }
-                        else if (arr[x][y - 1] == 1)
+                        else if (arr[x][y - 1] == 1 || arr[x][y - 1] == 2)
                         {
                             dir = (dir + 1) % 4;
                             moved(x, y, dir);
                             sum++;
                         }
                     }
-                    else if ((dir == 0 || dir == 2) && arr[x + 1][y] == 1)
+                    else if ((dir == 0 || dir == 2) && (arr[x + 1][y] == 1 || arr[x + 1][y] == 2))
                     {
 
                         if (dir == 2)
@@ -94,6 +93,7 @@ int main()
                             max = sum;
                             result = i;
                         }
+                        break;
                     }
                 }
             }
