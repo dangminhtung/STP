@@ -5,7 +5,6 @@ int col[4] = {-1, 0, 1, 0};
 int arr[200][200];
 void moved(int &x, int &y, int dir)
 {
-    // cout << row[dir] << " " << col[dir] << " " << dir << endl;
     x = x + row[dir];
     y = y + col[dir];
 }
@@ -43,7 +42,7 @@ int main()
                         break;
                     }
 
-                    cout << x << " " << y << " " << dir << endl;
+                    // cout << x << " " << y << " " << dir << endl;
 
                     if (dir == 3 && (arr[x][y + 1] == 1 || arr[x][y - 1] == 1 || arr[x][y + 1] == 2 || arr[x][y - 1] == 2))
                     {
@@ -79,13 +78,10 @@ int main()
                     }
                     else
                     {
-                        // cout << dir;
-                        // cout << x << " " << y << endl;
                         moved(x, y, dir);
-                        // cout << row[dir] << " " << col[dir] << endl;
                         sum++;
                     }
-                    // cout << x << " " << y << " " << sum << endl;
+
                     if (arr[x][y] == 2)
                     {
                         if (max > sum)
