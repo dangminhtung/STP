@@ -1,168 +1,60 @@
-#include <stdio.h>
 #include <iostream>
-#include <string>
 using namespace std;
 
-#define MAX 200
+#define MAX 100000
 
-struct Stack
+class Stack
 {
-    float DATA[MAX];
-    int TOP;
+    int data[MAX];
+    int top;
+
+public:
+    Stack();
+    bool is_Empty();
+    bool is_Full();
+    void push(int value);
+    int pop();
+    void reset();
+    int peek();
 };
-
-void init(Stack *S)
+Stack::Stack()
 {
-    S->TOP = -1;
+    top = -1;
 }
-
-int isEmpty(Stack *S)
+bool Stack::is_Empty()
 {
-    return S->TOP == -1 ? 1 : 0;
+    if (top == -1)
+        return true;
+    return false;
 }
-
-void Push(struct Stack *S, float item)
+bool Stack::is_Full()
 {
-    if (S->TOP == (MAX - 1))
-    {
-        printf("\nStack is full");
-    }
-    else
-    {
-        ++S->TOP;
-        S->DATA[S->TOP] = item;
-    }
+    if (top == MAX)
+        return true;
+    return false;
 }
-
-int top(Stack *S)
+void Stack::push(int value)
 {
-    return (S->DATA[S->TOP]);
+    data[++top] = value;
 }
-
-float Pop(struct Stack *S)
+int Stack::pop()
 {
-    float ret = -1;
-    if (S->TOP == -1)
-        printf("\nStack is empty");
-    else
-    {
-        ret = S->DATA[S->TOP];
-        --S->TOP;
-    }
-    return ret;
+    int res = data[top--];
+    return res;
 }
-
-int Precedence(char x)
+void Stack::reset()
 {
-    if (x == '(')
-        return 0;
-    if (x == '+' || x == '-')
-        return 1;
-    if (x == '*' || x == '/' || x == '%')
-        return 2;
-    return 3;
+    top = -1;
 }
-
-void InfixtoPostfix(char infix[], char postfix[])
+int Stack::peek()
 {
-    Stack S;
-    char x, token;
-    int i = 0, j = 0; // i - index of infix, j - index of postfix
-    init(&S);
-    for (i = 0; infix[i] != '\0'; i++)
-    {
-        token = infix[i];
-        if (isalnum(token))
-            postfix[j++] = token;
-        else if (token == '(')
-            Push(&S, '(');
-        else if (token == ')')
-            while ((x = Pop(&S)) != '(')
-                postfix[j++] = x;
-        else
-        {
-            while (Precedence(token) <= Precedence(top(&S)) && !isEmpty(&S))
-            {
-                x = Pop(&S);
-                postfix[j++] = x;
-            }
-            Push(&S, token);
-        }
-    }
-
-    while (!isEmpty(&S))
-    {
-        x = Pop(&S);
-        postfix[j++] = x;
-    }
-
-    postfix[j] = '\0';
+    return data[top];
 }
-
-float Evaluate(char *Postfix)
-{
-    struct Stack S;
-    char *p;
-    float op1, op2, result;
-    S.TOP = -1;
-    p = &Postfix[0];
-
-    while (*p != '\0')
-    {
-        while (*p == ' ' || *p == '\t')
-        {
-            p++;
-        }
-        if (isdigit(*p))
-        {
-            int num = 0;
-            while (isdigit(*p))
-            {
-                num = num * 10 + *p - 48;
-                *p++;
-            }
-            Push(&S, num);
-        }
-        else
-        {
-            op1 = Pop(&S);
-            op2 = Pop(&S);
-            switch (*p)
-            {
-            case '+':
-                result = op2 + op1;
-                break;
-            case '-':
-                result = op2 - op1;
-                break;
-            case '/':
-                result = op2 / op1;
-                break;
-            case '*':
-                result = op2 * op1;
-                break;
-            default:
-                printf("\nInvalid Operator");
-                return 0;
-            }
-            Push(&S, result);
-        }
-        p++;
-    }
-
-    result = Pop(&S);
-    return result;
-}
-
 int main()
 {
-    char A[MAX], B[MAX];
-    printf("Infix : ");
-    gets(A);
-    InfixtoPostfix(A, B);
-
-    printf("Postfix: %s\n", B);
-    printf("Equals is %f\n", Evaluate(&B[0]));
-    gets(A);
-    return 0;
+    freopen("output.out", "w", stdout);
+    Stack stack;
+    char a = 'a';
+    stack.push(a);
+    cout << stack.pop();
 }

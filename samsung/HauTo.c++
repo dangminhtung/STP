@@ -57,7 +57,7 @@ int Precedence(char x)
         return 0;
     if (x == '+' || x == '-')
         return 1;
-    if (x == '*' || x == '/' || x == '%')
+    if (x == '*' || x == '/')
         return 2;
     return 3;
 }
@@ -100,7 +100,9 @@ void InfixToPostFix(char str[], char postfix[], int len)
 }
 int main()
 {
-    freopen("input.txt", "rt", stdin);
+    freopen("input.in", "r", stdin);
+    freopen("output.out", "w", stdout);
+    ios_base::sync_with_stdio(false);
     for (int k = 0; k < 1; k++)
     {
         int len;
