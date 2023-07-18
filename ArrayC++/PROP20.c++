@@ -1,7 +1,7 @@
 #include <iostream>
 using namespace std;
-int num[100];
-int arr[100];
+int num[10000];
+int arr[10001];
 int phai(int value, int vitri, int n)
 {
     if (vitri + 1 > n)

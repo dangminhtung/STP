@@ -1,0 +1,8 @@
+{
+    "C_Cpp.errorSquiggles": "disabled",
+    "files.associations": {
+        "*.asm": "asm-collection",
+        "iostream": "cpp",
+        "ostream": "cpp"
+    }
+}

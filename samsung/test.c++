@@ -1,60 +1,49 @@
 #include <iostream>
 using namespace std;
+int arr[100];
+int n = 5;
+int partition(int arr[], int start, int end)
+{
+    int pivot = arr[end];
+    int left = start;
+    int right = end - 1;
+    while (true)
+    {
+        while (left <= right && arr[left] < pivot)
+            left++;
+        while (right >= left && arr[right] > pivot)
+            right--;
+        if (left >= right)
+            break;
+        swap(arr[left], arr[right]);
+        right--;
+        left++;
+    }
+    swap(arr[left], arr[end]);
+    return left;
+}
+void quicksort(int arr[], int start, int end)
+{
+    if (start < end)
+    {
+        int index = partition(arr, start, end);
 
-#define MAX 100000
-
-class Stack
-{
-    int data[MAX];
-    int top;
-
-public:
-    Stack();
-    bool is_Empty();
-    bool is_Full();
-    void push(int value);
-    int pop();
-    void reset();
-    int peek();
-};
-Stack::Stack()
-{
-    top = -1;
-}
-bool Stack::is_Empty()
-{
-    if (top == -1)
-        return true;
-    return false;
-}
-bool Stack::is_Full()
-{
-    if (top == MAX)
-        return true;
-    return false;
-}
-void Stack::push(int value)
-{
-    data[++top] = value;
-}
-int Stack::pop()
-{
-    int res = data[top--];
-    return res;
-}
-void Stack::reset()
-{
-    top = -1;
-}
-int Stack::peek()
-{
-    return data[top];
+        quicksort(arr, start, index - 1);
+        quicksort(arr, index + 1, end);
+    }
 }
 int main()
 {
+    freopen("input.in", "r", stdin);
     freopen("output.out", "w", stdout);
-    Stack stack;
-    char a = 'a';
-    stack.push(a);
-    cout << stack.pop();
+
+    for (int i = 0; i < 5; i++)
+    {
+        cin >> arr[i];
+    }
+    quicksort(arr, 0, n - 1);
+    for (int i = 0; i < n; i++)
+    {
+        cout << arr[i] << " ";
+    }
 }

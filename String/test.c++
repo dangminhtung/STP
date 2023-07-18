@@ -1,32 +1,94 @@
 #include <iostream>
-#include <string>
-
 using namespace std;
+long n, value, len;
 
-int main()
+int main(int argc, char const *argv[])
 {
-    string str = "Hello world!";
-    string subStr = "world";
-    int subStrLen = subStr.length();
-    int strLen = str.length();
+    int testcase;
+    cin >> testcase;
 
-    for (int i = strLen - 1; i >= 0; i--)
+    for (int tc = 0; tc < testcase; tc++)
     {
-        int j;
-        for (j = 0; j < subStrLen && i - j >= 0; j++)
+        // khoi tao mang luu tru
+        static long long arr[1000000];
+        len = 2;
+        arr[0] = 1;
+        arr[1] = 0;
+        // input str
+        char str;
+        cin >> n;
+        for (int j = 0; j < n; j++)
         {
-            if (str[i - j] != subStr[subStrLen - j - 1])
+            cin >> str;
+            if (j % 2 == 0)
+                value = 1;
+            else
+                value = 0;
+            if (str == 'L')
             {
-                break;
+
+                len++;
+                for (int i = len - 1; i > 0; i--)
+                {
+                    arr[i] = arr[i - 1];
+                }
+                arr[0] = value;
+                if (arr[1] == value)
+                    continue;
+                else
+                {
+                    int check = false;
+                    for (int i = 1; i < len; i++)
+                    {
+                        if (arr[i] == value)
+                            check = true;
+                    }
+                    if (check)
+                    {
+                        int h = 1;
+                        while (arr[h] != value)
+                        {
+                            arr[h] = value;
+                            h++;
+                        }
+                    }
+                }
+            }
+            else if (str == 'R')
+            {
+                len++;
+                arr[len - 1] = value;
+                if (arr[len - 2] == value)
+                    continue;
+                else
+                {
+                    int check = false;
+                    for (int i = len - 2; i >= 0; i--)
+                    {
+                        if (arr[i] == value)
+                            check = true;
+                    }
+                    if (check)
+                    {
+                        int h = len - 2;
+                        while (arr[h] != value)
+                        {
+                            arr[h] = value;
+                            h--;
+                        }
+                    }
+                }
             }
         }
-        if (j == subStrLen)
+        int den = 0, trang = 0;
+        for (int i = 0; i < len; i++)
         {
-            cout << "Substring found at position " << i - subStrLen + 1 << endl;
-            return 0;
+            if (arr[i] == 1)
+                den++;
+            else
+                trang++;
         }
+        cout << "#" << (tc + 1) << " " << den << " " << trang << endl;
     }
-
-    cout << "Substring not found!" << endl;
     return 0;
 }

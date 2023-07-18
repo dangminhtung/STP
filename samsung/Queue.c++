@@ -47,6 +47,7 @@ int main()
         }
     }
     int x, y;
+    bool visited[1000];
     for (int i = 0; i < n - 1; i++)
     {
         for (int j = 0; j < n; j++)
@@ -58,6 +59,7 @@ int main()
             y = y - 1;
             arr[x][y] = i + 1;
         }
+        visited[i + 1] = false;
     }
 
     for (int i = 0; i < n; i++)
