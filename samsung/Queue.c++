@@ -18,7 +18,7 @@ Queue::Queue()
 }
 bool Queue::is_empty()
 {
-    if (front = rear)
+    if (front == rear)
         return true;
     return false;
 }
