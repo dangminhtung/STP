@@ -1,8 +1,8 @@
+// tính năng lượng hao phí khi truyền năng lượng từ ngôi sao chủ đến các ngôi sao khác
+// tính cây khung nhỏ nhất 
 #include<iostream>
 #include<stdio.h>
 using namespace std;
-
-
 struct edge
 {
 	int start,end;
