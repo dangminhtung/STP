@@ -1,62 +1,54 @@
-// thuat toan cay khung
-#include <stdio.h>
-int n, arr[100][100], sum;
-bool visit[100];
-void resetVS()
-{
-    for (int i = 0; i < n; i++)
-        visit[i] = false;
+#include<iostream>
+using namespace std;
+
+int test, n;
+int arr[20][20]; 
+int key[20];
+int min_p=0;
+int visited[20] = {0};
+
+int minKey() {
+    int min = 99999;
+    int min_index;
+    for (int i = 0; i < n; i++) {
+        if (!visited[i] && key[i] < min) {
+            min = key[i];
+            min_index = i;
+        }
+    }
+    return min_index;
 }
-void solution()
-{
-    resetVS();
-    int dem = 1;
-    sum = 0;
-    int select;
-    visit[0] = true;
-    while (dem < n)
-    {
-        int min = 10000, index = 0;
-        
-        for (int select = 0; select < n; select++)
-        {
-            if (visit[select])
-            {
-                for (int i = 0; i < n; i++)
-                {
-                    if (i != select && !visit[i] && arr[select][i] < min)
-                    {
-                        min = arr[select][i];
-                        index = i;
-                    }
-                }
+
+void Prim() {
+    for (int i = 0; i < n; i++) {
+        key[i] = 99999;
+        visited[i] = 0;
+    }
+    key[0] = 0;
+
+    for (int c = 0; c < n ; c++) {
+        int index = minKey();
+        visited[index] = 1;
+        min_p += key[index];
+        for (int i = 0; i < n; i++) {
+            if (!visited[i] && arr[index][i] && key[i] > arr[index][i]) {
+                key[i] = arr[index][i];
             }
         }
-        sum += min;
-        visit[index] = true;
-        select = index;
-        dem++;
     }
 }
-int main()
-{
-    //  freopen("Text.txt","r",stdin);
-    int test;
-    scanf("%d", &test);
-    for (int t = 1; t <= test; t++)
-    {
-        scanf("%d", &n);
-        for (int i = 0; i < n; i++)
-            for (int j = 0; j < n; j++)
-                scanf("%d", &arr[i][j]);
-        solution();
-        printf("Case #%d\n%d\n", t, sum);
+
+int main() {
+    FILE* file;
+    freopen_s(&file, "Text.txt", "r", stdin);
+    cin >> test;
+    for (int t = 0; t < test; t++) {
+        cin >> n;
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < n; j++) cin >> arr[i][j];
+        }
+        Prim();
+        cout << min_p << endl;
     }
     return 0;
 }
-// 1
-// 4
-// 0 4 9 21
-// 4 0 8 17
-// 9 8 0 16
-// 21 17 16 0

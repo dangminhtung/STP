@@ -15,7 +15,7 @@ void backtrack(int index, int c,int core){
 			max_c=core;
 			min_c=c;
 		}
-		 else if(core==max_c){
+		else if(core==max_c){
 			min_c=min_c > c ? c:min_c;
 		}
 		return;
